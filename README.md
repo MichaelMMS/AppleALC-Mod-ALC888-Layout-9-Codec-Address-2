@@ -10,6 +10,47 @@ It was created specifically for the unusual but fully working combination of **A
 
 The same mod may also be useful on **other motherboards using a Realtek ALC888 at codec address 2**, provided their audio pin routing is compatible with this Layout 9 profile.
 
+### Other ALC888 / Codec Address 2 Motherboards Worth Testing
+
+The following boards are useful search targets for this mod because Linux codec dumps or historical AppleHDA/LegacyHDA reports show **Realtek ALC888 with codec address 2**, or successful use of the same classic Gigabyte ALC888 address-2 configuration:
+
+```text
+Gigabyte GA-EP45T-UD3LR   - tested with this AppleALC mod
+Gigabyte GA-P43-DS3       - confirmed ALC888, codec address 2
+Gigabyte GA-EX58-UD3R     - confirmed ALC888, codec address 2
+Gigabyte GA-EP43-UD3L     - historical ALC888 address-2 AppleHDA success reports
+Gigabyte GA-EP45-UD3LR    - historical ALC888 address-2 AppleHDA success reports
+Gigabyte GA-EP45-UD3L     - historical ALC888 address-2 AppleHDA success reports
+Gigabyte GA-EP35-DS3L     - historical ALC888 address-2 LegacyHDA/AppleHDA reports
+Gigabyte GA-EP43-DS3L     - reported as a closely related candidate
+```
+
+These names are intentionally listed here so users searching for combinations such as **"GA-EP45-UD3L AppleALC"**, **"GA-P43-DS3 ALC888"**, **"EX58-UD3R AppleALC"** or **"EP35-DS3L ALC888 codec address 2"** can find this project.
+
+**Only the GA-EP45T-UD3LR has been confirmed with this exact Production 1.2 AppleALC mod.** The other boards are candidates, not guaranteed-compatible systems. Gigabyte also shipped different audio implementations across some board revisions, so always verify the actual codec before installing.
+
+Under Linux, check all HDA codecs with:
+
+```bash
+grep -H -E '^(Codec|Address|Vendor Id|Subsystem Id):' /proc/asound/card*/codec#*
+```
+
+For this profile, the expected codec should look like:
+
+```text
+Codec: Realtek ALC888
+Address: 2
+Vendor Id: 0x10ec0888
+```
+
+and will normally be available as:
+
+```bash
+cat /proc/asound/card0/codec#2
+```
+
+A matching **ALC888 + Address 2** is the first requirement, but it is not by itself proof of compatibility. The board's pin defaults/routing must also be compatible with this mod's **Layout 9 / Platforms9 / PinConfig** profile.
+
 > **This is not an official Acidanthera release.**
 >
 > It is a hardware-specific modification based on AppleALC 1.6.8.
