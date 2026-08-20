@@ -1,12 +1,122 @@
 # AppleALC 1.6.8 – ALC888 Layout 9 / Codec Address 2 Mod
 
-Custom AppleALC build for the **Gigabyte GA-EP45T-UD3LR** with the onboard **Realtek ALC888** codec.
+## Bring Vanilla-Style AppleHDA Audio Back to Classic Hackintosh Hardware
 
-This repository contains a heavily reduced and board-specific AppleALC 1.6.8 source tree together with the resulting release kext.
+This mod brings **native AppleHDA audio through AppleALC** to the **Gigabyte GA-EP45T-UD3LR** and its onboard **Realtek ALC888** — without installing a permanently patched `AppleHDA.kext`.
+
+It was created specifically for the unusual but fully working combination of **ALC888 + Layout 9 + codec address 2**, making proper legacy audio possible on retro macOS installations from the **Snow Leopard / Darwin 10 era through the Yosemite / Darwin 14 era**.
+
+**Production 1.2 is live-tested on Mac OS X Snow Leopard 10.6.8 and OS X Mountain Lion 10.8.5.** The build targets the wider Darwin 10–14 range; later systems in that range, including **OS X Yosemite 10.10 (Darwin 14)**, are compatibility targets and have not all been live-tested on this machine.
+
+The same mod may also be useful on **other motherboards using a Realtek ALC888 at codec address 2**, provided their audio pin routing is compatible with this Layout 9 profile.
 
 > **This is not an official Acidanthera release.**
 >
-> It is a hardware-specific modification based on AppleALC 1.6.8 and intended for this particular ALC888 configuration.
+> It is a hardware-specific modification based on AppleALC 1.6.8.
+
+---
+
+## Quick Start
+
+The release package contains:
+
+```text
+AppleALC.kext
+AppleALC.kext.dSYM
+SSDT-HDEF-ENABLER.aml
+SSDT-HDEF-ENABLER.dsl
+```
+
+For normal use you need:
+
+```text
+AppleALC.kext
+SSDT-HDEF-ENABLER.aml
+```
+
+### OpenCore
+
+1. Copy `AppleALC.kext` to:
+
+```text
+EFI/OC/Kexts/
+```
+
+and add it under:
+
+```text
+Kernel -> Add
+```
+
+`Lilu.kext` must be loaded before `AppleALC.kext`.
+
+2. Copy `SSDT-HDEF-ENABLER.aml` to:
+
+```text
+EFI/OC/ACPI/
+```
+
+and add it under:
+
+```text
+ACPI -> Add
+```
+
+**The supplied HDEF SSDT is required for this profile.**
+
+3. **Do not set any `alcid=` boot argument.**
+
+Do not use, for example:
+
+```text
+alcid=9
+```
+
+and do not inject a second/different `layout-id` through OpenCore `DeviceProperties`.
+
+The supplied SSDT already injects the required:
+
+```text
+layout-id       = 9
+apple-layout-id = 9
+use-layout-id   = 1
+```
+
+For this mod, keep the audio configuration simple: **Lilu + AppleALC + the supplied HDEF SSDT, with no `alcid` override.**
+
+---
+
+## Checking the Codec Under Linux
+
+Before trying this mod on another motherboard, Linux can be used to verify the actual HDA codec and its hardware address.
+
+A convenient overview is:
+
+```bash
+grep -H -E '^(Codec|Address|Vendor Id|Subsystem Id):' /proc/asound/card*/codec#*
+```
+
+For a codec located at address 2, the relevant file is typically:
+
+```bash
+cat /proc/asound/card0/codec#2
+```
+
+For the target hardware you should see an ALC888 / Realtek codec with vendor ID:
+
+```text
+0x10ec0888
+```
+
+and:
+
+```text
+Address: 2
+```
+
+The filename `codec#2` also indicates HDA codec address 2.
+
+**Important:** AppleALC `Layout ID 9` is a macOS/AppleHDA profile selection, not a hardware value reported by Linux. Linux can confirm the codec model, codec address and pin configuration, but it cannot tell you that your board is “Layout 9”. Compatibility with this mod therefore also depends on the board's pin routing matching the included Layout 9 / Platforms9 / PinConfig profile.
 
 ---
 
