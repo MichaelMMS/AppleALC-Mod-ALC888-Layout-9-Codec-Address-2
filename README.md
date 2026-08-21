@@ -904,7 +904,7 @@ Copyright © Acidanthera / vit9696 and contributors
 Licensed under the BSD 3-Clause License
 ```
 
-Board-specific modifications, production build tooling and documentation created for this project:
+Board-specific modifications, production build scripts and documentation created for this project:
 
 ```text
 Copyright © 2026 Michael McSky
@@ -916,7 +916,6 @@ This includes, where originally created for this repository:
 GA-EP45T-UD3LR / ALC888 Layout 9 integration
 Codec Address 2 production profile
 Production build scripts
-Version-update tooling
 README / build documentation
 ```
 
@@ -931,7 +930,7 @@ Based on AppleALC 1.6.8 by Acidanthera and contributors.
 AppleALC is licensed under the BSD 3-Clause License.
 
 GA-EP45T-UD3LR / ALC888 Layout 9 / Codec Address 2 modifications,
-production build tooling and documentation:
+production build scripts and documentation:
 Copyright © 2026 Michael McSky.
 ```
 
