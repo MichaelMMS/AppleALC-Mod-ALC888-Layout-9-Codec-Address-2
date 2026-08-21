@@ -537,7 +537,6 @@ Depending on the branch/release, this repository may contain:
 AppleALC-1.6.8-ALC888-P9-A2-ProductionRelease-1.2-Source/
 AppleALC.kext
 AppleALC-Mod-selbst-kompiliren.md
-update-production-version.sh
 README.md
 ```
 
@@ -558,13 +557,11 @@ AppleALC-1.6.8-ALC888-P9-A2-ProductionRelease-1.2-Source
 run:
 
 ```bash
-rm -f .DS_Store Resources.md5 Resources.tmp.md5 update-version.sh README_CN.md && rm -rf Lilu.kext .github && rm -f MacKernelSDK
+rm -f .DS_Store Resources.md5 Resources.tmp.md5 README_CN.md && rm -rf Lilu.kext .github && rm -f MacKernelSDK
 ```
 
 Notes:
 
-- `update-version.sh` is the old version-update helper and should not be published.
-- Use the safer `update-production-version.sh` instead.
 - `Lilu.kext` is only a local build dependency and should be rebuilt from Lilu 1.5.9.
 - `MacKernelSDK` is normally a local symlink to a checkout outside this repository and should not be committed.
 - `.github` from the original upstream tree is not required for this board-specific repository.
@@ -601,7 +598,6 @@ alc-verb/
 
 BUILD-AppleALC-Production-1.2.py
 PRODUCTION-1.2-SOURCE-NOTES.md
-update-production-version.sh
 Changelog.md
 LICENSE.txt
 README.md
